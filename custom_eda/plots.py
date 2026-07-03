@@ -1,4 +1,4 @@
-import plotly as px
+import plotly.express as px
 import plotly.figure_factory as ff
 
 def plot_numerical_histogram(df, column, bins = None, title = None):
@@ -117,6 +117,8 @@ def plot_correlation_heatmap(df, title = None):
                    color_continuous_scale = "RdBu",
                    title = title)
   
+
+
 
   
   if title is None:

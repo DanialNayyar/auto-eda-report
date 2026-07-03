@@ -53,7 +53,7 @@ def get_strong_feature_correlations(data_frame, correlation_threshold, method = 
   return final_dictionary
 
 
-def summary_of_correlations(df, threshold, method = None, return_strongest = True):
+def summary_of_correlations(df, correlation_threshold, method = None, return_strongest = True):
   """
   Returns a summary of the correlations between columns in a pandas dataframe.
   """
@@ -66,7 +66,7 @@ def summary_of_correlations(df, threshold, method = None, return_strongest = Tru
   if method not in ["pearson", "spearman", "kendall"]:
     raise ValueError("Method must be pearson, spearman, or kendall")
 
-  if threshold <= 0 or threshold > 1:
+  if correlation_threshold <= 0 or correlation_threshold > 1:
     raise ValueError("Threshold must be greater than 0 and less than or equal to 1")
   
   numerical_df = df.select_dtypes(include = ["number", "bool"])
@@ -82,7 +82,7 @@ def summary_of_correlations(df, threshold, method = None, return_strongest = Tru
 
 
   if return_strongest:
-    strongest_corrs = get_strong_feature_correlations(numerical_df, threshold, method)
+    strongest_corrs = get_strong_feature_correlations(numerical_df, correlation_threshold, method)
   else:
     strongest_corrs = None
 
@@ -90,7 +90,7 @@ def summary_of_correlations(df, threshold, method = None, return_strongest = Tru
 
   output_dict = {
       "correlation_method": method,
-      "correlation_threshold": threshold,
+      "correlation_threshold": correlation_threshold,
       "columns_analysed": cols_analysed,
       "number_of_columns_analysed": number_of_cols_analysed,
       "correlations": numerical_df.corr(method = method).to_dict(),
