@@ -27,21 +27,31 @@ generate_html_report(report, "My EDA Report")
 ## Using on Colab
 
 ```
-import pandas as pd
+pip install git+https://github.com/DanialNayyar/auto-eda-report.git
 
-!git clone https://github.com/DanialNayyar/auto-eda-report.git
-%cd auto-eda-report
 
 from custom_eda.reporting import generate_eda_report
+from custom_eda.html_report import generate_html_report
 
-print("Import successful!")
+import pandas as pd
 
+# Load dataset
 df = pd.read_csv("your_dataset.csv")
 
+# Generate report object
 report = generate_eda_report(
     df,
     strong_corrs_for_scatter=True,
+    correlation_method="pearson",
     correlation_threshold=0.7
 )
+
+# Generate HTML report
+output_file = generate_html_report(
+    report,
+    report_title="My EDA Report"
+)
+
+print("Report saved as:", output_file)
 
 ```
